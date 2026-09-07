@@ -4,6 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Mendacium</title>
+<link rel="preload" href="assets/mendacium-logo.png" as="image" fetchpriority="high" />
+<link rel="preload" href="assets/opera-mask.glb" as="fetch" crossorigin />
+<link rel="modulepreload" href="https://unpkg.com/three@0.160.0/build/three.module.js" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -77,33 +80,29 @@
     position: relative;
   }
 
+  .mask-stage {
+    position: relative;
+    width: min(72vh, 92vw);
+    height: min(72vh, 78vh);
+  }
   #mask-canvas {
-    width: 72vh;
-    max-width: 92vw;
-    height: 72vh;
-    max-height: 78vh;
-    display: block;
+    width: 100%; height: 100%; display: block;
+    opacity: 0; transition: opacity .8s ease;
   }
-
-  /* loading skeleton */
-  .skeleton {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%) translateY(-40px);
+  .mask-placeholder {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
     pointer-events: none;
-    opacity: 1;
-    transition: opacity 0.8s ease;
+    opacity: 1; transition: opacity .8s ease;
   }
-  .skeleton.hidden { opacity: 0; }
-  .skeleton .ring {
-    width: 28px; height: 28px;
-    border: 1px solid rgba(232,220,196,0.18);
-    border-top-color: var(--fg-dim);
-    border-radius: 50%;
-    animation: spin360 1.2s linear infinite;
+  .mask-placeholder img {
+    width: 80%; height: 80%; object-fit: contain;
+    filter: invert(1); mix-blend-mode: screen;
   }
-  @keyframes spin360 {
-    to { transform: rotate(360deg); }
+  .mask-stage.is-ready #mask-canvas { opacity: 1; }
+  .mask-stage.is-ready .mask-placeholder { opacity: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    #mask-canvas, .mask-placeholder { transition: none; }
   }
 
   /* button */
@@ -151,12 +150,21 @@
     inset: 0;
     background: var(--bg);
     z-index: 999;
-    opacity: 1;
+    opacity: 0;
     pointer-events: none;
     transition: opacity 0.5s ease;
   }
   body.ready #veil { opacity: 0; }
   body.leaving #veil { opacity: 1; pointer-events: all; }
+  /* Original stippled logo, reversed to suit the dark palette. */
+  .brand-logo {
+    width: 36px; height: 36px; object-fit: contain; flex-shrink: 0;
+    filter: invert(1); mix-blend-mode: screen; opacity: .8;
+  }
+  @media (max-width: 520px) {
+    .chrome { padding: 18px 16px; flex-wrap: wrap; gap: 16px; }
+    .chrome .nav { gap: 16px; }
+  }
 </style>
 </head>
 <body>
@@ -164,7 +172,7 @@
   <div id="veil"></div>
 
   <div class="chrome">
-    <span class="brand"><span class="dot"></span>Mendacium</span>
+    <span class="brand"><img class="brand-logo" src="assets/mendacium-logo.png" alt="" width="36" height="36" decoding="async" />Mendacium</span>
     <nav class="nav">
       <a href="datasets.html" id="nav-datasets">Datasets</a>
       <a href="about.html" id="nav-about">About</a>
@@ -172,8 +180,12 @@
   </div>
 
   <section class="hero">
-    <canvas id="mask-canvas"></canvas>
-    <div class="skeleton" id="skeleton"><div class="ring"></div></div>
+    <div class="mask-stage" id="mask-stage">
+      <canvas id="mask-canvas" aria-label="Rotating theatrical mask" role="img"></canvas>
+      <div class="mask-placeholder" id="mask-placeholder">
+        <img src="assets/mendacium-logo.png" alt="Mendacium theatrical masks" width="1254" height="1254" fetchpriority="high" />
+      </div>
+    </div>
 
     <a href="datasets.html" class="btn" id="explore">
       <span class="fill"></span>
@@ -205,7 +217,10 @@
     // ──────────────────────────────────────────────────────────
 
     const canvas   = document.getElementById('mask-canvas');
-    const skeleton = document.getElementById('skeleton');
+    const stage = document.getElementById('mask-stage');
+    const placeholder = document.getElementById('mask-placeholder');
+    let modelReady = false;
+    let revealed = false;
 
     // ─── scene / camera / renderer ───────────────────────────
     const scene = new THREE.Scene();
@@ -277,12 +292,12 @@
         );
 
         pivot.add(model);
-        skeleton.classList.add('hidden');
+        modelReady = true;
       },
       undefined,
       (err) => {
         console.error('[mendacium] failed to load GLB:', err);
-        skeleton.classList.add('hidden');
+        // Keep the logo visible if the model cannot load.
       }
     );
 
@@ -301,7 +316,7 @@
     const clock = new THREE.Clock();
 
     function animate() {
-      const dt = clock.getDelta();
+      const dt = Math.min(clock.getDelta(), 0.05);
 
       // auto-rotate the model itself on Y
       pivot.rotation.y += ROTATION_SPEED * dt;
@@ -313,6 +328,14 @@
       pivot.position.x = currentTilt.y * 0.15;
 
       renderer.render(scene, camera);
+      // Reveal only after a frame containing the model has been rendered.
+      if (modelReady && !revealed) {
+        revealed = true;
+        requestAnimationFrame(() => {
+          stage.classList.add('is-ready');
+          placeholder.setAttribute('aria-hidden', 'true');
+        });
+      }
       requestAnimationFrame(animate);
     }
 

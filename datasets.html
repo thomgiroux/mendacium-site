@@ -408,6 +408,15 @@
   }
   body.ready #veil { opacity: 0; }
   body.leaving #veil { opacity: 1; pointer-events: all; }
+  /* Original stippled logo, reversed to suit the dark palette. */
+  .brand-logo {
+    width: 36px; height: 36px; object-fit: contain; flex-shrink: 0;
+    filter: invert(1); mix-blend-mode: screen; opacity: .8;
+  }
+  @media (max-width: 520px) {
+    .chrome { padding: 18px 16px; flex-wrap: wrap; gap: 16px; }
+    .chrome .nav { gap: 16px; }
+  }
 </style>
 </head>
 <body>
@@ -415,7 +424,7 @@
   <div id="veil"></div>
 
   <header class="chrome">
-    <a class="brand" href="index.html"><span class="dot"></span>Mendacium</a>
+    <a class="brand" href="index.html"><img class="brand-logo" src="assets/mendacium-logo.png" alt="" width="36" height="36" decoding="async" />Mendacium</a>
     <nav class="nav">
       <a href="datasets.html">Datasets</a>
       <a href="about.html">About</a>

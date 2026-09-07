@@ -177,7 +177,7 @@
   }
   ul.clean li b {
     color: var(--fg);
-    font-weight: 500;
+    font-weight: 400;
   }
 
   /* quality / feature cards */
@@ -194,7 +194,7 @@
     background: var(--card);
   }
   .feature .q {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 18px;
     letter-spacing: -0.01em;
     margin-bottom: 10px;
@@ -221,7 +221,7 @@
   }
   .tax-row:last-child { border-bottom: none; }
   .tax-row .tax-name {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 16px;
     letter-spacing: -0.01em;
   }
@@ -255,7 +255,7 @@
     letter-spacing: -0.02em;
   }
   .step .step-title {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 22px;
     letter-spacing: -0.01em;
     margin-bottom: 12px;
@@ -299,7 +299,7 @@
     text-decoration: none;
     font-family: inherit;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     cursor: pointer;
@@ -346,12 +346,21 @@
     .chrome { padding: 20px 24px; }
     .chrome .nav { gap: 20px; }
   }
+  /* Original stippled logo, reversed to suit the dark palette. */
+  .brand-logo {
+    width: 36px; height: 36px; object-fit: contain; flex-shrink: 0;
+    filter: invert(1); mix-blend-mode: screen; opacity: .8;
+  }
+  @media (max-width: 520px) {
+    .chrome { padding: 18px 16px; flex-wrap: wrap; gap: 16px; }
+    .chrome .nav { gap: 16px; }
+  }
 </style>
 </head>
 <body>
 
   <header class="chrome">
-    <a class="brand" href="index.html"><span class="dot"></span>Mendacium</a>
+    <a class="brand" href="index.html"><img class="brand-logo" src="assets/mendacium-logo.png" alt="" width="36" height="36" decoding="async" />Mendacium</a>
     <nav class="nav">
       <a href="datasets.html">Datasets</a>
       <a href="about.html" class="active">About</a>
@@ -375,9 +384,9 @@
         <div>
           <div class="subhead">What we provide</div>
           <ul class="clean">
-            <li>Synthetic <b>PSYOP datasets</b></li>
-            <li>Labeled <b>manipulative language</b> examples</li>
-            <li><b>Coercive communication</b> patterns</li>
+            <li>Synthetic PSYOP datasets</li>
+            <li>Labeled manipulative language examples</li>
+            <li>Coercive communication patterns</li>
           </ul>
         </div>
         <div>
