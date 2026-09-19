@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run PSYOP-Bench on your model | Mendacium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14303B; --ink-soft:#4A6270; --paper:#E9EBE5; --paper-lift:#F3F4EF;
+  --rule:#BCC2B8; --held:#2F6B52; --failed:#6E3450;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Public Sans",system-ui,sans-serif;font-size:17px;line-height:1.55;
+  font-variant-numeric:tabular-nums}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}
+
+header{padding:56px 0 0}
+.mark{font-size:15px;color:var(--ink-soft);margin:0 0 44px}
+.mark a{color:var(--ink-soft)}
+h1{font-family:Fraunces,Georgia,serif;font-weight:300;
+  font-size:clamp(36px,5.8vw,60px);line-height:1.04;letter-spacing:-.015em;
+  margin:0 0 22px;max-width:17ch}
+.standfirst{font-size:20px;line-height:1.5;max-width:62ch;margin:0 0 26px}
+.get{display:inline-block;background:var(--ink);color:var(--paper);
+  padding:14px 22px;text-decoration:none;font-size:17px;font-weight:500}
+.get span{display:block;font-size:14px;font-weight:400;opacity:.75;margin-top:3px}
+
+section{margin:72px 0 0}
+h2.sec{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:29px;
+  margin:0 0 10px;letter-spacing:-.01em}
+.sub{color:var(--ink-soft);max-width:64ch;margin:0 0 24px}
+
+.step{display:grid;grid-template-columns:38px 1fr;gap:20px;
+  padding:22px 0;border-top:1px solid var(--rule)}
+.step-n{font-family:Fraunces,Georgia,serif;font-size:27px;font-weight:300;
+  color:var(--ink-soft);line-height:1}
+.step h3{font-size:18px;font-weight:500;margin:0 0 7px}
+.step p{margin:0 0 12px;max-width:62ch}
+pre{background:var(--ink);color:var(--paper-lift);padding:16px 18px;margin:0 0 12px;
+  overflow-x:auto;font-size:14.5px;line-height:1.6;
+  font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+pre b{color:#9FD6B8;font-weight:400}
+code{background:var(--paper-lift);border:1px solid var(--rule);
+  padding:1px 5px;font-size:14.5px;
+  font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+.aside{font-size:15px;color:var(--ink-soft);max-width:62ch;margin:0}
+
+table{width:100%;border-collapse:collapse;font-size:16px;margin:0 0 8px}
+th,td{padding:12px 12px 12px 0;text-align:left;vertical-align:baseline}
+thead th{font-weight:500;font-size:14px;color:var(--ink-soft);
+  border-bottom:2px solid var(--ink)}
+tbody tr{border-bottom:1px solid var(--rule)}
+td.k{font-weight:500;white-space:nowrap}
+
+ul.notes{padding-left:20px;max-width:66ch;margin:0}
+ul.notes li{margin:0 0 12px}
+footer{margin:80px 0 0;border-top:1px solid var(--rule);padding:26px 0 64px;
+  font-size:14px;color:var(--ink-soft);max-width:66ch}
+footer p{margin:0 0 9px}
+
+@media (max-width:640px){
+  .step{grid-template-columns:1fr;gap:6px}
+  .step-n{font-size:22px}
+  table{font-size:15px}
+  th,td{padding:10px 8px 10px 0}
+  pre{font-size:13px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="mark">Mendacium · PSYOP-Bench · <a href="/psyop-bench">leaderboard</a></p>
+  <h1>Run it on your own model</h1>
+  <p class="standfirst">Three files, no installation, one command. It works with OpenAI, Anthropic, Google, Groq, and anything that speaks an OpenAI-compatible API, including a model you host yourself.</p>
+  <a class="get" href="/downloads/psyop-bench.zip">Download the benchmark<span>Python 3.8 or newer. No dependencies.</span></a>
+</header>
+
+<section>
+  <h2 class="sec">Four steps</h2>
+  <p class="sub">Budget ten to forty minutes depending on your rate limit. It makes 384 calls.</p>
+
+  <div class="step">
+    <div class="step-n">1</div>
+    <div>
+      <h3>Unzip it</h3>
+      <p>You get three files. Nothing else is needed.</p>
+      <pre>psyop_bench.py        <b>the runner and scorer</b>
+track_a_items.jsonl   <b>32 items, 96 conversations</b>
+labels.json           <b>the 13 tactics and their definitions</b></pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n">2</div>
+    <div>
+      <h3>Point it at your model</h3>
+      <p>Set your key, then run one command.</p>
+      <pre>export OPENAI_API_KEY=sk-...
+python psyop_bench.py --provider openai --model gpt-5</pre>
+      <p>Other providers work the same way.</p>
+      <pre>python psyop_bench.py --provider anthropic --model claude-sonnet-4-5
+python psyop_bench.py --provider gemini    --model gemini-3.6-flash
+python psyop_bench.py --provider groq      --model openai/gpt-oss-120b --sleep 5</pre>
+      <p class="aside">For a self-hosted model, pass <code>--base-url http://localhost:8000/v1</code>. On a rate-limited free tier, add <code>--sleep 5</code>; pausing deliberately finishes faster than being throttled.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n">3</div>
+    <div>
+      <h3>Let it finish</h3>
+      <p>Progress is saved after every item. If it stops for any reason, rerun the identical command and it continues from where it left off rather than starting over.</p>
+      <pre>resuming: 28 of 32 items already complete</pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n">4</div>
+    <div>
+      <h3>Read the score, or send it in</h3>
+      <p>You get a printed summary and a file called <code>psyop-&lt;model&gt;.json</code> holding every answer the model gave.</p>
+      <pre>IDENTIFICATION (strict, all variants)
+  precision            : 0.829
+  recall               : 0.906
+  <b>micro F1  &lt;-- headline : 0.866</b>
+  false alarm rate     : 0.016   (1 of 64)
+  format compliance    : 1.000   (0 of 96 replies unusable)</pre>
+      <p>To appear on the public leaderboard, send that file to <a href="mailto:contact.mendacium@gmail.com">contact.mendacium@gmail.com</a> with a contact name. Results are normally posted within a few days.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Reading the numbers</h2>
+  <p class="sub">Identification micro F1 is the headline. Everything else tells you how a model earned it.</p>
+  <table>
+    <thead><tr><th scope="col">Metric</th><th scope="col">What it means</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Identification F1</td><td>Whether the model can name the tactic used on it. Strict: a wrong tactic costs as much as a missed one.</td></tr>
+      <tr><td class="k">Held, flipped, refused</td><td>A model under pressure has three options, not two. Reporting only a hold rate makes a model that refuses to answer look identical to one that stands firm.</td></tr>
+      <tr><td class="k">False alarm rate</td><td>How often it names a tactic in the 64 conversations where none was used. This is where capable models lose most of their points.</td></tr>
+      <tr><td class="k">Format compliance</td><td>A model replying <code>[1, 2, 3]</code> has not said no tactics were used, it has failed to follow instructions. Scored separately so the two are never confused.</td></tr>
+      <tr><td class="k">Baseline accuracy</td><td>Correctness before any pushback. Below about 0.95 means the items, not the model, need review. Report it either way.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2 class="sec">Notes before you publish a score</h2>
+  <ul class="notes">
+    <li>No judge model is used anywhere in scoring, so anyone with these three files can reproduce your number exactly.</li>
+    <li>A result is defined by the item set, prompt and parser versions together. All three are recorded in the submission file. Do not compare across versions.</li>
+    <li>Temperature is fixed at 0 and the token budget at 2000. That budget matters: reasoning models can exhaust a smaller one before reaching an answer, which looks like failure but is not.</li>
+    <li>A private held-out set is kept undistributed, so leaderboard scores stay meaningful once these public items circulate into training data. Write to us for a held-out score.</li>
+    <li>Pilot scale is 32 items, English only, written by one author. Treat gaps under about 0.10 F1 as unresolved.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>PSYOP-Bench v0.6.0, Track A pilot. Prompt set v1, parser v6. Code Apache-2.0, data CC BY 4.0.</p>
+  <p>Passages are verbatim public record: UN General Debate Corpus, UN Security Council records, US Congressional Record, US Presidents. All CC0, CC BY 4.0 or US public domain, so the data carries no licensing risk in commercial or government use.</p>
+  <p>Mendacium builds licence-clean multilingual datasets for detecting psychological influence in political speech.</p>
+</footer>
+
+</div>
+</body>
+</html>
