@@ -417,6 +417,12 @@
     .chrome { padding: 18px 16px; flex-wrap: wrap; gap: 16px; }
     .chrome .nav { gap: 16px; }
   }
+
+  /* Keep the expanded navigation readable on narrow screens. */
+  @media (max-width: 780px) {
+    .chrome { flex-wrap: wrap; gap: 16px; }
+    .chrome .nav { flex-wrap: wrap; justify-content: flex-end; gap: 16px; margin-left: auto; }
+  }
 </style>
 </head>
 <body>
@@ -429,6 +435,8 @@
       <a href="datasets.html">Datasets</a>
       <a href="about.html">About</a>
       <a class="back" href="index.html" id="back-home">Home</a>
+      <a href="/psyop-bench/">Benchmark</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </header>
 

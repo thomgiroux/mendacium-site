@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mendacium — About</title>
+<title>Mendacium — Contact</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -361,140 +361,27 @@
     .chrome { flex-wrap: wrap; gap: 16px; }
     .chrome .nav { flex-wrap: wrap; justify-content: flex-end; gap: 16px; margin-left: auto; }
   }
+  .contact-copy { margin-top: 36px; font-size: clamp(18px, 3vw, 24px); font-weight: 300; line-height: 1.7; }
+  .contact-copy a { color: var(--fg); text-underline-offset: 5px; overflow-wrap: anywhere; }
+  .contact-copy a:hover { color: var(--fg-dim); }
 </style>
 </head>
 <body>
-
-  <header class="chrome">
+<header class="chrome">
     <a class="brand" href="index.html"><img class="brand-logo" src="assets/mendacium-logo.png" alt="" width="36" height="36" decoding="async" />Mendacium</a>
     <nav class="nav">
       <a href="datasets.html">Datasets</a>
-      <a href="about.html" class="active">About</a>
+      <a href="about.html">About</a>
       <a href="index.html">Home</a>
       <a href="/psyop-bench/">Benchmark</a>
-      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="active" aria-current="page">Contact</a>
     </nav>
   </header>
-
-  <div class="wrap">
-
-    <div class="page-head">
-      <div class="eyebrow">Mission</div>
-      <h1>About<br/>Mendacium</h1>
-    </div>
-
-    <!-- ───── Section 1 — Positioning ───── -->
-    <section class="block reveal">
-      <h2 class="sec-title">What is Mendacium?</h2>
-      <p class="lede">Mendacium provides synthetic and labeled datasets for training AI models to detect and analyze psychological operations (PSYOPs) and coercive communication. Built for researchers, defense labs, and AI safety teams.</p>
-
-      <div class="cols">
-        <div>
-          <div class="subhead">What we provide</div>
-          <ul class="clean">
-            <li>Synthetic PSYOP datasets</li>
-            <li>Labeled manipulative language examples</li>
-            <li>Coercive communication patterns</li>
-          </ul>
-        </div>
-        <div>
-          <div class="subhead">Who we serve</div>
-          <ul class="clean">
-            <li>Defense and intelligence contractors</li>
-            <li>Academic disinformation researchers</li>
-            <li>AI safety and content moderation teams</li>
-            <li>Civil society and NGOs countering manipulation</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ───── Section 2 — Dataset Design ───── -->
-    <section class="block reveal">
-      <h2 class="sec-title">What makes our datasets defensible?</h2>
-
-      <div class="feature-grid">
-        <div class="feature">
-          <div class="q">High-quality</div>
-          <div class="q-desc">Well-labeled, consistent, and thoroughly documented.</div>
-        </div>
-        <div class="feature">
-          <div class="q">Unique</div>
-          <div class="q-desc">Hard to replicate from public sources.</div>
-        </div>
-        <div class="feature">
-          <div class="q">Scalable</div>
-          <div class="q-desc">Systematically generated at volume.</div>
-        </div>
-        <div class="feature">
-          <div class="q">Ethically defensible</div>
-          <div class="q-desc">Clear provenance and use restrictions.</div>
-        </div>
-      </div>
-
-      <div class="taxonomy">
-        <div class="subhead">Taxonomy — coverage areas</div>
-        <div class="tax-row">
-          <div class="tax-name">PSYOPs &amp; propaganda</div>
-          <div class="tax-detail">Narratives, framing, and amplification tactics.</div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-name">Psychological coercion</div>
-          <div class="tax-detail">Gaslighting, emotional manipulation, and coercive control.</div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-name">Detection &amp; countermeasures</div>
-          <div class="tax-detail">Safe vs. manipulative content classification.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ───── Section 3 — Methodology ───── -->
-    <section class="block reveal">
-      <h2 class="sec-title">How we build the data</h2>
-
-      <div class="steps">
-        <div class="step">
-          <div class="num">01</div>
-          <div>
-            <div class="step-title">Define taxonomy</div>
-            <div class="step-body">Categories include authority bias, emotional coercion, false urgency, and social proof.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="num">02</div>
-          <div>
-            <div class="step-title">Generate synthetic data</div>
-            <div class="step-body">LLM-generated realistic examples, labeled by coercive tactic and severity.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="num">03</div>
-          <div>
-            <div class="step-title">Curate real-world examples</div>
-            <div class="step-body">Where legally and ethically permissible — public propaganda archives, declassified PSYOPs, and anonymized social media snippets with documented sources.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="closer">
-        <p>Explore the collection.</p>
-        <a class="btn" href="datasets.html">
-          <span class="fill"></span>
-          <span>Explore Datasets</span>
-          <span class="arrow">→</span>
-        </a>
-      </div>
-    </section>
-
-  </div>
-
-  <script>
-    // reveal on scroll
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  </script>
+  <main class="wrap">
+    <div class="page-head"><h1>Contact</h1></div>
+    <p class="contact-copy">For any queries, please send a message to:<br>
+      <a href="mailto:contact.mendacium@gmail.com">contact.mendacium@gmail.com</a>
+    </p>
+  </main>
 </body>
 </html>
