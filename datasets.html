@@ -166,7 +166,7 @@
   }
   .state.hidden { display: none; }
 
-  /* ───── shared meta row (downloads / likes) ───── */
+  /* ───── shared meta row (downloads) ───── */
   .meta {
     display: flex;
     align-items: center;
@@ -552,13 +552,11 @@
     }
 
     const ICON_DL = '<svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>';
-    const ICON_LIKE = '<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.5A3.5 3.5 0 0 1 12 7a3.5 3.5 0 0 1 7 3.5C19 15.5 12 20 12 20z"/></svg>';
 
     function metaRow(d) {
       return `
         <div class="meta">
           <span class="stat">${ICON_DL}<b>${fmt(d.downloads)}</b>&nbsp;downloads</span>
-          <span class="stat">${ICON_LIKE}<b>${fmt(d.likes)}</b>&nbsp;likes</span>
         </div>`;
     }
 
