@@ -6,22 +6,22 @@
 <title>PSYOP-Bench  Mendacium</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#14303B;
-  --ink-soft:#4A6270;
-  --paper:#E9EBE5;
-  --paper-lift:#F3F4EF;
-  --rule:#BCC2B8;
-  --held:#2F6B52;
-  --failed:#6E3450;
+  --ink:#e8dcc4;
+  --ink-soft:#aaa18f;
+  --paper:#000000;
+  --paper-lift:#0d0d0c;
+  --rule:rgba(232,220,196,.16);
+  --held:#e8dcc4;
+  --failed:#b7aa92;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0;background:var(--paper);color:var(--ink);
-  font-family:"Public Sans",system-ui,sans-serif;
+  font-family:"Space Grotesk",system-ui,sans-serif;
   font-size:17px;line-height:1.55;font-variant-numeric:tabular-nums;
 }
 .wrap{max-width:940px;margin:0 auto;padding:0 28px}
@@ -31,7 +31,7 @@ header{padding:56px 0 0}
 .mark{font-size:15px;letter-spacing:.01em;color:var(--ink-soft);margin:0 0 44px}
 .mark a{color:var(--ink-soft)}
 h1{
-  font-family:Fraunces,Georgia,serif;font-weight:300;
+  font-family:"Space Grotesk",system-ui,sans-serif;font-weight:300;
   font-size:clamp(38px,6.4vw,68px);line-height:1.02;
   letter-spacing:-.015em;margin:0 0 22px;max-width:15ch;
 }
@@ -45,7 +45,7 @@ h1{
 /* hero transcript */
 .exchange{margin:64px 0 0;border-top:2px solid var(--ink);padding-top:34px}
 .exchange h2{
-  font-family:Fraunces,Georgia,serif;font-weight:300;font-size:29px;
+  font-family:"Space Grotesk",system-ui,sans-serif;font-weight:300;font-size:29px;
   margin:0 0 8px;letter-spacing:-.01em;
 }
 .exchange .lede{max-width:62ch;color:var(--ink-soft);margin:0 0 30px}
@@ -72,7 +72,7 @@ h1{
 /* roll call */
 section{margin:76px 0 0}
 h2.sec{
-  font-family:Fraunces,Georgia,serif;font-weight:300;font-size:29px;
+  font-family:"Space Grotesk",system-ui,sans-serif;font-weight:300;font-size:29px;
   margin:0 0 10px;letter-spacing:-.01em;
 }
 .sub{color:var(--ink-soft);max-width:64ch;margin:0 0 26px}
@@ -121,12 +121,51 @@ footer p{margin:0 0 9px}
   .fill{animation:grow .9s cubic-bezier(.2,.7,.3,1) both}
   @keyframes grow{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1)}}
 }
+
+/* Shared Mendacium visual language. */
+body{-webkit-font-smoothing:antialiased;font-weight:300}
+.wrap{max-width:1180px;padding:0 40px}
+.chrome{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 40px;background:linear-gradient(to bottom,rgba(0,0,0,.97) 60%,rgba(0,0,0,.88));backdrop-filter:blur(4px)}
+.chrome .brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-size:12px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;flex-shrink:0}
+.brand-logo{width:36px;height:36px;object-fit:contain;filter:invert(1);mix-blend-mode:screen;opacity:.8}
+.chrome .nav{display:inline-flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:30px}
+.chrome .nav a{font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:rgba(232,220,196,.55);text-decoration:none;transition:color .4s ease}
+.chrome .nav a:hover,.chrome .nav a[aria-current="page"]{color:var(--ink)}
+a:focus-visible,.table-scroll:focus-visible{outline:1px solid var(--ink);outline-offset:5px}
+.page-head{padding:64px 0 0}
+.mark{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:28px}
+h1{font-size:clamp(40px,6.4vw,80px);letter-spacing:-.025em;max-width:19ch}
+.standfirst{color:var(--ink-soft);font-weight:300;line-height:1.65;margin-top:28px}
+.status,.source{border-radius:4px}
+.exchange{border-top:1px solid var(--rule);padding-top:48px}
+.exchange h2,h2.sec{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em}
+.reveal{background:var(--paper-lift);color:var(--ink);border:1px solid var(--rule);border-radius:4px;line-height:1.7}
+section{border-top:1px solid var(--rule);padding-top:48px}
+.table-scroll{overflow-x:auto}
+table{min-width:700px}
+thead th{border-bottom:1px solid var(--rule)}
+.lead{font-weight:500}
+.bars{padding-right:56px}
+.fill.alt{background:var(--failed)}
+.fill-val{color:var(--ink)}
+@media(max-width:780px){.chrome{flex-wrap:wrap;padding:20px 24px;gap:16px}.chrome .nav{gap:16px;margin-left:auto}.wrap{padding:0 24px}.page-head{padding-top:40px}}
+@media(max-width:640px){.bars{padding-right:0}.track{margin-right:52px}.fill-val{left:calc(100% + 11px);right:auto;color:var(--ink)}}
 </style>
 </head>
 <body>
+<header class="chrome">
+  <a class="brand" href="/"><img class="brand-logo" src="/assets/mendacium-logo.png" alt="" width="36" height="36">Mendacium</a>
+  <nav class="nav" aria-label="Main navigation">
+    <a href="/datasets.html">Datasets</a>
+    <a href="/about.html">About</a>
+    <a href="/">Home</a>
+    <a href="/psyop-bench/" aria-current="page">Benchmark</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+</header>
 <div class="wrap">
 
-<header>
+<header class="page-head">
   <p class="mark">Mendacium · PSYOP-Bench · <a href="/psyop-bench/run">run it on your model</a></p>
   <h1>Can a model tell when it is the one being worked on?</h1>
   <p class="standfirst">PSYOP-Bench tests language models on both sides of psychological influence: reading tactics in real parliamentary and UN speech, and recognising those same tactics when a user turns them on the model itself.</p>
@@ -171,7 +210,7 @@ footer p{margin:0 0 9px}
   <h2 class="sec">Results</h2>
   <p class="sub">Identification is the headline score. It counts a wrong tactic against a model as heavily as a missed one, so naming four tactics to be safe does not pay.</p>
 
-  <table>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Benchmark results"><table>
     <caption>PSYOP-Bench Track A v0.6.0 · 32 items · 96 conversations per model · 384 calls per model · temperature 0 · every model answered all 32 questions correctly before any pressure</caption>
     <thead>
       <tr>
@@ -225,7 +264,7 @@ footer p{margin:0 0 9px}
         <td class="num">0%</td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 
   <div class="bars">
     <div class="bar-row">
